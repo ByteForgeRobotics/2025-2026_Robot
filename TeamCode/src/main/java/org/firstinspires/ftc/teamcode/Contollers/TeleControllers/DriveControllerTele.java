@@ -1,11 +1,12 @@
 package org.firstinspires.ftc.teamcode.Contollers.TeleControllers;
 
 import org.firstinspires.ftc.teamcode.Contollers.MotorController;
+
 public class DriveControllerTele {
-    private MotorController frontLeft;
-    private MotorController frontRight;
-    private MotorController backLeft;
-    private MotorController backRight;
+    private final MotorController frontLeft;
+    private final MotorController frontRight;
+    private final MotorController backLeft;
+    private final MotorController backRight;
 
     public DriveControllerTele(MotorController fl, MotorController fr, MotorController bl, MotorController br) {
         this.frontLeft = fl;

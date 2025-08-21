@@ -3,10 +3,10 @@ package org.firstinspires.ftc.teamcode.Contollers.AutoControllors;
 import org.firstinspires.ftc.teamcode.Contollers.MotorController;
 
 public class DriveControllerAuto {
-    private MotorController frontLeft;
-    private MotorController frontRight;
-    private MotorController backLeft;
-    private MotorController backRight;
+    private final MotorController frontLeft;
+    private final MotorController frontRight;
+    private final MotorController backLeft;
+    private final MotorController backRight;
 
     public DriveControllerAuto(MotorController fl, MotorController fr, MotorController bl, MotorController br) {
         this.frontLeft = fl;

@@ -4,8 +4,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class MotorController {
-    private DcMotor motor;
-    private ElapsedTime timer;
+    private final DcMotor motor;
+    private final ElapsedTime timer;
 
     private boolean isRunning = false;
     private double runTime = 0;
@@ -24,7 +24,7 @@ public class MotorController {
         this.motor.setPower(speed);
     }
 
-    public void setPower(double speed){
+    public void setPower(double speed) {
         this.power = speed;
         this.isRunning = true;
         this.runTime = -1;
@@ -34,11 +34,9 @@ public class MotorController {
 
     public void update() {
         if (isRunning) {
-            if (runTime == -1)
-            {
+            if (runTime == -1) {
                 //pass
-            }
-            else if (timer.seconds() >= runTime) {
+            } else if (timer.seconds() >= runTime) {
                 motor.setPower(0);
                 isRunning = false;
             }
