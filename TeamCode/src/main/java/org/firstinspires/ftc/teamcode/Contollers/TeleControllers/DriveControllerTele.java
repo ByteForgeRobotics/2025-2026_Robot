@@ -21,7 +21,7 @@ public class DriveControllerTele {
         backRight.update();
     }
 
-    public void drive(double LeftX, double LeftY, double RightX, double timeSeconds) {
+    public void drive(double LeftX, double LeftY, double RightX) {
         double forward = -LeftY;
         double strafe = LeftX;
         double rotate = RightX;
@@ -39,15 +39,15 @@ public class DriveControllerTele {
         bl /= max;
         br /= max;
 
-        fl *= 0.1;
-        fr *= 0.1;
-        bl *= 0.1;
-        br *= 0.1;
+        fl *= 1;
+        fr *= 1;
+        bl *= 1;
+        br *= 1;
 
-        frontLeft.runMotor(timeSeconds, fl);
-        frontRight.runMotor(timeSeconds, fr);
-        backLeft.runMotor(timeSeconds, bl);
-        backRight.runMotor(timeSeconds, br);
+        frontLeft.setPower(fl);
+        frontRight.setPower(fr);
+        backLeft.setPower(bl);
+        backRight.setPower(br);
     }
 
 

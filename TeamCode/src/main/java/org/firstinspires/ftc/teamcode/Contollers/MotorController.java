@@ -24,9 +24,21 @@ public class MotorController {
         this.motor.setPower(speed);
     }
 
+    public void setPower(double speed){
+        this.power = speed;
+        this.isRunning = true;
+        this.runTime = -1;
+        this.motor.setPower(speed);
+
+    }
+
     public void update() {
         if (isRunning) {
-            if (timer.seconds() >= runTime) {
+            if (runTime == -1)
+            {
+                //pass
+            }
+            else if (timer.seconds() >= runTime) {
                 motor.setPower(0);
                 isRunning = false;
             }
