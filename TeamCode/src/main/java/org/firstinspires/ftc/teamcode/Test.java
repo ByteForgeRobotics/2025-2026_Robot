@@ -16,22 +16,17 @@ public class Test extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        // Initialize motors from config
         frontLeft = new MotorController(hardwareMap.dcMotor.get("front_left"));
         frontRight = new MotorController(hardwareMap.dcMotor.get("front_right"));
         backLeft = new MotorController(hardwareMap.dcMotor.get("back_left"));
         backRight = new MotorController(hardwareMap.dcMotor.get("back_right"));
 
-        // Pass into your drive controller
         drive = new DriveControllerAuto(frontLeft, frontRight, backLeft, backRight);
 
-        // Wait for start button
         waitForStart();
 
-        // Example: at start, schedule a forward motion
         drive.drive(1, 0, 0, 0.5, 2);
 
-        // MAIN LOOP
         while (opModeIsActive()) {
             drive.update();
 

@@ -26,10 +26,9 @@ public class MotorController {
 
     public void update() {
         if (isRunning) {
-            // check if time has elapsed
             if (timer.seconds() >= runTime) {
-                motor.setPower(0);   // stop motor
-                isRunning = false;   // mark finished
+                motor.setPower(0);
+                isRunning = false;
             }
         }
     }
