@@ -2,11 +2,11 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import org.firstinspires.ftc.teamcode.Contollers.AutoOnly.DriveControllerAuto;
+import org.firstinspires.ftc.teamcode.Contollers.AutoControllors.DriveControllerAuto;
 import org.firstinspires.ftc.teamcode.Contollers.MotorController;
 
-@Autonomous(name = "Test", group = "Test")
-public class Test extends LinearOpMode {
+@Autonomous(name = "AutoExample", group = "Examples")
+public class AutoExample extends LinearOpMode {
 
     private MotorController frontLeft;
     private MotorController frontRight;
@@ -30,12 +30,14 @@ public class Test extends LinearOpMode {
         while (opModeIsActive()) {
             drive.update();
 
-            if (!drive.isRunning()) {
-                telemetry.addLine("done");
-                telemetry.update();
-
-                drive.drive(1, 0.5, 0, 0.5, 2);;
+            int step = 0;
+            switch (step) {
+                case 0:
+                    drive.drive(0.5, 1, 0, 0.5, 2);
+                    telemetry.addLine("step 2 complete");
+                    step++;
             }
+
         }
     }
 }
