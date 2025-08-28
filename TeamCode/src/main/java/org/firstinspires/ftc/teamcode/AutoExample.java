@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.Contollers.AutoControllors.DriveControllerAuto;
 import org.firstinspires.ftc.teamcode.Contollers.MotorController;
 
-@Autonomous(name = "AutoExample", group = "Examples")
+@Autonomous(name = "AutoExample")
 public class AutoExample extends LinearOpMode {
 
     private MotorController frontLeft;
@@ -17,26 +17,27 @@ public class AutoExample extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        frontLeft = new MotorController(hardwareMap.dcMotor.get("front_left"));
-        frontRight = new MotorController(hardwareMap.dcMotor.get("front_right"));
-        backLeft = new MotorController(hardwareMap.dcMotor.get("back_left"));
-        backRight = new MotorController(hardwareMap.dcMotor.get("back_right"));
+        frontLeft = new MotorController(hardwareMap.dcMotor.get("FL"));
+        frontRight = new MotorController(hardwareMap.dcMotor.get("FR"));
+        backLeft = new MotorController(hardwareMap.dcMotor.get("BL"));
+        backRight = new MotorController(hardwareMap.dcMotor.get("BR"));
 
         drive = new DriveControllerAuto(frontLeft, frontRight, backLeft, backRight);
 
         waitForStart();
 
-        drive.drive(1, 0, 0, 0.5, 2);
-
+        drive.drive(1, 0, 0, 0.5, 20);
+        int step = 0;
         while (opModeIsActive()) {
             drive.update();
 
-            int step = 0;
             switch (step) {
                 case 0:
-                    drive.drive(0.5, 1, 0, 0.5, 2);
+                    drive.drive(1, 0, 0, 0.5, 10);
                     telemetry.addLine("step 2 complete");
                     step++;
+                case 1:
+                    stop();
             }
 
         }

@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.Contollers.MotorController;
 import org.firstinspires.ftc.teamcode.Contollers.TeleControllers.DriveControllerTele;
 
 
-@TeleOp(name = "TeleOp Example", group = "Examples")
+@TeleOp(name = "TeleOp Example")
 public class TeleExample extends LinearOpMode {
 
     private MotorController frontLeft;
@@ -18,10 +18,10 @@ public class TeleExample extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        frontLeft = new MotorController(hardwareMap.dcMotor.get("front_left"));
-        frontRight = new MotorController(hardwareMap.dcMotor.get("front_right"));
-        backLeft = new MotorController(hardwareMap.dcMotor.get("back_left"));
-        backRight = new MotorController(hardwareMap.dcMotor.get("back_right"));
+        frontLeft = new MotorController(hardwareMap.dcMotor.get("FL"));
+        frontRight = new MotorController(hardwareMap.dcMotor.get("FR"));
+        backLeft = new MotorController(hardwareMap.dcMotor.get("BL"));
+        backRight = new MotorController(hardwareMap.dcMotor.get("BR"));
 
         drive = new DriveControllerTele(frontLeft, frontRight, backLeft, backRight);
 
