@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Contollers;
+package org.firstinspires.ftc.teamcode.Contollers.General;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;

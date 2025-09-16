@@ -1,10 +1,9 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Contollers.General;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Contollers.AutoControllors.DriveControllerAuto;
-import org.firstinspires.ftc.teamcode.Contollers.MotorController;
 import org.firstinspires.ftc.teamcode.Contollers.ServoController;
 
 @Autonomous(name = "AutoExample")

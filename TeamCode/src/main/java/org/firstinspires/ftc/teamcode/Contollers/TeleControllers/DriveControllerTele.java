@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.Contollers.TeleControllers;
 
-import org.firstinspires.ftc.teamcode.Contollers.MotorController;
+import org.firstinspires.ftc.teamcode.Contollers.General.MotorController;
 
 public class DriveControllerTele {
     private final MotorController frontLeft;

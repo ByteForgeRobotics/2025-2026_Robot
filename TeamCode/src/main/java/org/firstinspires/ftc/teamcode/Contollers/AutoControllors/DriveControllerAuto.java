@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.Contollers.AutoControllors;
 
-import org.firstinspires.ftc.teamcode.Contollers.MotorController;
+import org.firstinspires.ftc.teamcode.Contollers.General.MotorController;
 
 public class DriveControllerAuto {
     private final MotorController frontLeft;
