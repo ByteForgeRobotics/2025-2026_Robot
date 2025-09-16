@@ -46,9 +46,9 @@ public class DriveControllerTele {
         br *= 1;
 
         frontLeft.setPower(fl);
-        frontRight.setPower(fr);
+        frontRight.setPower(-fr);
         backLeft.setPower(bl);
-        backRight.setPower(br);
+        backRight.setPower(-br);
     }
 
 

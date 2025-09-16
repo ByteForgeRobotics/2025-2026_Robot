@@ -49,9 +49,9 @@ public class DriveControllerAuto {
         br *= power;
 
         frontLeft.runMotor(timeSeconds, fl);
-        frontRight.runMotor(timeSeconds, fr);
+        frontRight.runMotor(timeSeconds, -fr);
         backLeft.runMotor(timeSeconds, bl);
-        backRight.runMotor(timeSeconds, br);
+        backRight.runMotor(timeSeconds, -br);
     }
 
     public void stop() {
