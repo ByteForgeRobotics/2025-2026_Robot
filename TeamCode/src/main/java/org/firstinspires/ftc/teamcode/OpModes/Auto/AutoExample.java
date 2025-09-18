@@ -21,26 +21,31 @@ public class AutoExample extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+        float xPoz = 0;
+        float yPoz = 0;
         frontLeft = new MotorController(hardwareMap.dcMotor.get("FL"));
         frontRight = new MotorController(hardwareMap.dcMotor.get("FR"));
         backLeft = new MotorController(hardwareMap.dcMotor.get("BL"));
         backRight = new MotorController(hardwareMap.dcMotor.get("BR"));
         testServo = new ServoController(hardwareMap.servo.get("test"));
         navX = new NavXContoller(hardwareMap.get(NavxMicroNavigationSensor.class, "navx"));
-
         drive = new DriveControllerAuto(frontLeft, frontRight, backLeft, backRight,navX);
-
+        telemetry.addLine("Robot ready");
         waitForStart();
 
         int step = 0;
         while (opModeIsActive()) {
-            testServo.update();
-
+            drive.update();
             switch (step) {
                 case 0:
-                    testServo.setPosition(1);
-                    telemetry.addLine("step 2 complete");
-                    step++;
+                    drive.MoveToPosition(10,10,90,true,xPoz,yPoz);
+                    xPoz = 10;
+                    yPoz = 10;
+                    if (!drive.isRunning()) {
+                        step++;
+                        break;
+                    }
+
             }
 
         }

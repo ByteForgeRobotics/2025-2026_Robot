@@ -8,34 +8,62 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngularVelocity;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import java.util.ArrayList;
-import java.util.List;
 
-public class NavXContoller {
+public class NavXContoller implements Runnable {
     private final NavxMicroNavigationSensor navX;
     private final IntegratingGyroscope gyro;
-    private final ElapsedTime timer = new ElapsedTime();
+    private volatile float latestYaw;
+    private volatile float latestPitch;
+    private volatile float latestRoll;
+    private Thread sensorThread;
+    private volatile boolean running;
 
     public NavXContoller(NavxMicroNavigationSensor navX) {
         this.navX = navX;
         this.gyro = (IntegratingGyroscope) navX;
+        startThread();
     }
 
-    public List<Float> getGyroData() {
-        List<Float> data = new ArrayList<>();
-        AngularVelocity rates = gyro.getAngularVelocity(AngleUnit.DEGREES);
-        Orientation angles = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-        data.add(rates.xRotationRate);
-        data.add(rates.yRotationRate);
-        data.add(rates.zRotationRate);
-        data.add(angles.firstAngle);
-        data.add(angles.secondAngle);
-        data.add(angles.thirdAngle);
-        return data;
+    private void startThread() {
+        running = true;
+        sensorThread = new Thread(this);
+        sensorThread.setDaemon(true);
+        sensorThread.start();
+    }
+
+    public void stopThread() {
+        running = false;
+        try {
+            sensorThread.join();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    @Override
+    public void run() {
+        while (running) {
+            Orientation angles = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+            latestYaw = angles.firstAngle;
+            latestPitch = angles.secondAngle;
+            latestRoll = angles.thirdAngle;
+            try {
+                Thread.sleep(5);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
     }
 
     public float getYaw() {
-        Orientation angles = gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-        return angles.firstAngle;
+        return latestYaw;
+    }
+
+    public float getPitch() {
+        return latestPitch;
+    }
+
+    public float getRoll() {
+        return latestRoll;
     }
 }
