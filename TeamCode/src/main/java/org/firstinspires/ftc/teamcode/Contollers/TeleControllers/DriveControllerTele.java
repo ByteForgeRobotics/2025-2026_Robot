@@ -40,10 +40,10 @@ public class DriveControllerTele {
         bl /= max;
         br /= max;
 
-        fl *= 1;
-        fr *= 1;
-        bl *= 1;
-        br *= 1;
+        fl *= -1;
+        fr *= -1;
+        bl *= -1;
+        br *= -1;
 
         frontLeft.setPower(fl);
         frontRight.setPower(-fr);

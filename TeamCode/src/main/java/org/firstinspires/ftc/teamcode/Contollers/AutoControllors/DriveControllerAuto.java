@@ -1,18 +1,24 @@
 package org.firstinspires.ftc.teamcode.Contollers.AutoControllors;
 
+import com.qualcomm.hardware.kauailabs.NavxMicroNavigationSensor;
 import org.firstinspires.ftc.teamcode.Contollers.General.MotorController;
+import org.firstinspires.ftc.teamcode.Contollers.General.NavXContoller;
 
 public class DriveControllerAuto {
     private final MotorController frontLeft;
     private final MotorController frontRight;
     private final MotorController backLeft;
     private final MotorController backRight;
+    private final NavXContoller gyro;
+    private static final double ANGLE_THRESHOLD = 1.0;
+    private static final double POSITION_THRESHOLD = 0.5;
 
-    public DriveControllerAuto(MotorController fl, MotorController fr, MotorController bl, MotorController br) {
-        this.frontLeft = fl;
-        this.frontRight = fr;
-        this.backLeft = bl;
-        this.backRight = br;
+    public DriveControllerAuto(MotorController fl, MotorController fr, MotorController bl, MotorController br, NavXContoller gyroController) {
+        frontLeft = fl;
+        frontRight = fr;
+        backLeft = bl;
+        backRight = br;
+        gyro = gyroController;
     }
 
     public void update() {
@@ -23,11 +29,10 @@ public class DriveControllerAuto {
     }
 
     public boolean isRunning() {
-        return frontLeft.isRunning() || frontRight.isRunning()
-                || backLeft.isRunning() || backRight.isRunning();
+        return frontLeft.isRunning() || frontRight.isRunning() || backLeft.isRunning() || backRight.isRunning();
     }
 
-    public void drive(double forward, double strafe, double rotate, double power, double timeSeconds) {
+    public void drive(double forward, double strafe, double rotate, double power) {
         double fl = forward + strafe + rotate;
         double fr = forward - strafe - rotate;
         double bl = forward - strafe + rotate;
@@ -43,15 +48,41 @@ public class DriveControllerAuto {
         bl /= max;
         br /= max;
 
-        fl *= power;
-        fr *= power;
-        bl *= power;
-        br *= power;
+        fl *= -power;
+        fr *= -power;
+        bl *= -power;
+        br *= -power;
 
-        frontLeft.runMotor(timeSeconds, fl);
-        frontRight.runMotor(timeSeconds, -fr);
-        backLeft.runMotor(timeSeconds, bl);
-        backRight.runMotor(timeSeconds, -br);
+        frontLeft.setPower(fl);
+        frontRight.setPower(-fr);
+        backLeft.setPower(bl);
+        backRight.setPower(-br);
+    }
+
+    public void MoveToPosition(float newDx, float newDy, float newAngle, boolean flag, double currentX, double currentY) {
+        float currentHeading = gyro.getYaw();
+        double distanceX = newDx - currentX;
+        double distanceY = newDy - currentY;
+        double distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+        double angleDifference = currentHeading - newAngle;
+
+        if (!flag) {
+            while (Math.abs(angleDifference) > ANGLE_THRESHOLD) {
+                currentHeading = gyro.getYaw();
+                angleDifference = newAngle - currentHeading;
+                double rotatePower = angleDifference / 180.0;
+                drive(0, 0, rotatePower, 1);
+            }
+            while (distance > POSITION_THRESHOLD) {
+                distanceX = newDx - currentX;
+                distanceY = newDy - currentY;
+                distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+                double forward = distanceY / distance;
+                double strafe = distanceX / distance;
+                drive(forward, strafe, 0, 1);
+            }
+        }
+        stop();
     }
 
     public void stop() {
